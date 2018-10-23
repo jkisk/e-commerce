@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module '/Users/nolanhellyer/Documents/GitHub/e-commerce/main.js' from '/Users/nolanhellyer/Documents/GitHub/e-commerce'");
