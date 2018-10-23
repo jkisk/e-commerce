@@ -2,10 +2,10 @@
   "name": "e-commerce",
   "version": "1.0.0",
   "description": "A storefront for selling propane and propane accessories",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
-    "build": "browserify main.js -o bundle.js",
-    "watch": "watchify main.js -o bundle.js",
+    "build": "browserify main.js checkout.js -o bundle.js",
+    "watch": "watchify main.js checkout.js -o bundle.js",
     "dev-server": "live-server .",
     "dev": "run-all \"npm run watch\" \"npm run dev-server\""
   },
