@@ -1,5 +1,5 @@
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, options);
-  });
+  
+    const elems = document.querySelectorAll('select');
+    const instances = M.FormSelect.init(elems);
+ 
