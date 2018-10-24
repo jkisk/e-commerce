@@ -9,3 +9,5 @@ body {
 main {
   flex: 1 0 auto;
 }
+.carousel .carousel-item {
+  width: 250px !important;}
