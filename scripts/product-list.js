@@ -1,11 +1,11 @@
 module.exports = products = [
   {
-  name : 'Vogner Char-King',
-  price : 499.99,
-  rating : 3.5,
-  description : 'Turn the heat up with the Vogner Char King. With a full size grill and fine grain heat controls, the Vogner Char King takes your barbecuing to the next level.',
-  image : 'img/vogner-char-king.jpg',
-  tags : ['grill', 'Char-King']
+    name : 'Vogner Char-King',
+    price : 499.99,
+    rating : 3.5,
+    description : 'Turn the heat up with the Vogner Char King. With a full size grill and fine grain heat controls, the Vogner Char King takes your barbecuing to the next level.',
+    image : 'img/vogner-char-king.jpg',
+    tags : ['grill', 'Char-King']
   },
   {
     name : 'Char-King Imperiale',
@@ -29,6 +29,6 @@ module.exports = products = [
     rating : 4.5,
     description : 'Buy a full 20 lb. tank of clean burning propane',
     image : 'img/new-tank.jpg',
-    tags : ['propane', '20 lb']
+    tags : ['propane']
   }
 ]

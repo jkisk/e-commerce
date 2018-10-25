@@ -1,12 +1,12 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 module.exports = products = [
   {
-  name : 'Vogner Char-King',
-  price : 499.99,
-  rating : 3.5,
-  description : 'Turn the heat up with the Vogner Char King. With a full size grill and fine grain heat controls, the Vogner Char King takes your barbecuing to the next level.',
-  image : 'img/vogner-char-king.jpg',
-  tags : ['grill', 'Char-King']
+    name : 'Vogner Char-King',
+    price : 499.99,
+    rating : 3.5,
+    description : 'Turn the heat up with the Vogner Char King. With a full size grill and fine grain heat controls, the Vogner Char King takes your barbecuing to the next level.',
+    image : 'img/vogner-char-king.jpg',
+    tags : ['grill', 'Char-King']
   },
   {
     name : 'Char-King Imperiale',
@@ -30,7 +30,7 @@ module.exports = products = [
     rating : 4.5,
     description : 'Buy a full 20 lb. tank of clean burning propane',
     image : 'img/new-tank.jpg',
-    tags : ['propane', '20 lb']
+    tags : ['propane']
   }
 ]
 
@@ -38,10 +38,25 @@ module.exports = products = [
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
-    const products = require("./product-list");
-    const productsHTML = document.getElementById("products");
+  render({low : 20, high : 700}, "grill");
+}
 
-    for (let i = 0; i < products.length; i++) {
+function render(priceRange, tag) {
+  const products = require("./product-list");
+  const productsHTML = document.getElementById("products");
+
+  destroy(productsHTML);
+
+  for (let i = 0; i < products.length; i++) {
+    let match = true;
+
+    if (tag !== undefined && !products[i].tags.includes(tag)) match = false;
+    else if (products[i].price !== undefined) {
+      if (products[i].price < priceRange.low) match = false;
+      else if (products[i].price > priceRange.high) match = false;
+    }
+
+    if (match) {
       let product = document.createElement("div");
       let imageCol = document.createElement("div");
       let infoCol = document.createElement("div");
@@ -49,7 +64,7 @@ function main() {
       let title = document.createElement("h2");
       let price = document.createElement("span");
       let ratingLabel = document.createElement("strong");
-      let rating = getRatingStars(products.rating);
+      let rating = getRatingStars(products[i].rating);
       let description = document.createElement("p");
 
       product.classList.add("row");
@@ -80,10 +95,27 @@ function main() {
       product.appendChild(infoCol);
       productsHTML.appendChild(product);
     }
+  }
+}
+
+function renderFilters(priceRange, tag) {
+  const tags = new Set();
+  const tagsHTML = document.getElementById("tags");
+
+  for (let product in products) {
+    products.tags.forEach(function(el) {
+      tags.add(el);
+    });
+  }
+
+  for (let tag of tags) {
+
+  }
 }
 
 function getRatingStars(n) {
   const stars = document.createElement("span");
+  console.log(n);
 
   for (let i = 0; i < Math.floor(n); i++) {
     let fullStar = document.createElement("i");
@@ -97,7 +129,7 @@ function getRatingStars(n) {
     let halfStar = document.createElement("i");
     halfStar.classList.add("material-icons");
     halfStar.classList.add("tiny");
-    halfStar.innerText = "half_star";
+    halfStar.innerText = "star_half";
     stars.appendChild(halfStar);
   }
 
@@ -110,6 +142,10 @@ function getRatingStars(n) {
   }
 
   return stars;
+}
+
+function destroy(node) {
+  while (node.children[0]) node.removeChild(children[0]);
 }
 
 },{"./product-list":1}]},{},[2]);

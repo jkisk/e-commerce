@@ -1,10 +1,25 @@
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
-    const products = require("./product-list");
-    const productsHTML = document.getElementById("products");
+  render({low : 20, high : 700}, "grill");
+}
 
-    for (let i = 0; i < products.length; i++) {
+function render(priceRange, tag) {
+  const products = require("./product-list");
+  const productsHTML = document.getElementById("products");
+
+  destroy(productsHTML);
+
+  for (let i = 0; i < products.length; i++) {
+    let match = true;
+
+    if (tag !== undefined && !products[i].tags.includes(tag)) match = false;
+    else if (products[i].price !== undefined) {
+      if (products[i].price < priceRange.low) match = false;
+      else if (products[i].price > priceRange.high) match = false;
+    }
+
+    if (match) {
       let product = document.createElement("div");
       let imageCol = document.createElement("div");
       let infoCol = document.createElement("div");
@@ -43,6 +58,22 @@ function main() {
       product.appendChild(infoCol);
       productsHTML.appendChild(product);
     }
+  }
+}
+
+function renderFilters(priceRange, tag) {
+  const tags = new Set();
+  const tagsHTML = document.getElementById("tags");
+
+  for (let product in products) {
+    products.tags.forEach(function(el) {
+      tags.add(el);
+    });
+  }
+
+  for (let tag of tags) {
+
+  }
 }
 
 function getRatingStars(n) {
@@ -51,8 +82,8 @@ function getRatingStars(n) {
 
   for (let i = 0; i < Math.floor(n); i++) {
     let fullStar = document.createElement("i");
-    fullstar.classList.add("material-icons");
-    fullstar.classList.add("tiny");
+    fullStar.classList.add("material-icons");
+    fullStar.classList.add("tiny");
     fullStar.innerText = "star";
     stars.appendChild(fullStar);
   }
@@ -74,4 +105,8 @@ function getRatingStars(n) {
   }
 
   return stars;
+}
+
+function destroy(node) {
+  while (node.children[0]) node.removeChild(children[0]);
 }
