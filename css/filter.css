@@ -5,6 +5,7 @@
 .filter-list li {
   list-style: none;
   display: inline-block;
+  margin: 0px 2px 0px 2px;
 }
 
 #products img {

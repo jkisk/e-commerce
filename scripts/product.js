@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
-  render({low : 20, high : 700}, "grill");
+  render({priceRange : {low : 20, high : 700}, tag : "grill"});
 }
 
-function render(priceRange, tag) {
+function render({priceRange, tag}) {
   const products = require("./product-list");
   const productsHTML = document.getElementById("products");
 
   destroy(productsHTML);
+  renderFilters(products, priceRange, tag);
 
   for (let i = 0; i < products.length; i++) {
     let match = true;
@@ -61,19 +62,44 @@ function render(priceRange, tag) {
   }
 }
 
-function renderFilters(priceRange, tag) {
+function renderFilters({products, priceRange, tag}) {
+  console.log(products);
   const tags = new Set();
   const tagsHTML = document.getElementById("tags");
+  const priceRanges = [
+    { low :   0, high :  50 },
+    { low :  51, high : 100 },
+    { low : 101, high : 200 },
+    { low : 201, high : 300 },
+    { low : 301, high : 500 },
+    { low : 501, high : 700 }
+  ]
+  const priceHTML = document.getElementById("price-range");
 
-  for (let product in products) {
-    products.tags.forEach(function(el) {
+  for (let product of products) {
+    product.tags.forEach(function(el) {
       tags.add(el);
     });
   }
 
   for (let tag of tags) {
+    console.log(tag);
+    let item = document.createElement("li");
 
+    if (tag !== activeTag) {
+      let link = document.createElement("a");
+
+      link.innerText = tag;
+      link.setAttribute("href", "#");
+      link.classList.add("tag");
+      link.value = tag;
+      item.appendChild(link);
+    } else item.innerText = tag;
+
+    tagsHTML.appendChild(item);
   }
+
+
 }
 
 function getRatingStars(n) {
@@ -109,4 +135,8 @@ function getRatingStars(n) {
 
 function destroy(node) {
   while (node.children[0]) node.removeChild(children[0]);
+}
+
+function filter(e) {
+  render()
 }
