@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
     <script defer src="bundle.js"></script>
 </head>
 
@@ -26,9 +28,9 @@
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Your Purchase</span>
-                    <p>Cool Propane Thing $500 <br>
-                        Neat Propane Thing $250 <br>
-                        Total = $750
+                    <p>Vogner Char-King $499.99 <br>
+                        Char-King Imperiale $799.99 <br>
+                        Total = $1299.98
                     </p>
                 </div>
             </div>
@@ -41,7 +43,7 @@
         </h4>
     </div>
 
-    <form class="col s12">
+    <form class="col s12 purchase-form">
         <div class="row">
 
             <div class="input-field col s4">
@@ -70,6 +72,10 @@
         </div>
 
         <div class="row">
+                <div class="input-field col s4">
+                        <input id="shippingcity" type="text" class="validate" required>
+                        <label for="shippingcity">Town/City</label>
+                </div>
 
             <div class="input-field col s3">
 
@@ -131,13 +137,13 @@
                 </select>
             </div>
                 <div class="input-field col s4">
-                    <input id="shippingzip" type="text" class="validate" required>
+                    <input id="shippingzip" type="text" class="validate"  required>
                     <label for="shippingzip">Zip Code</label>
                 </div>
 
                 <p>
                     <label>
-                        <input type="checkbox" />
+                        <input type="checkbox" name="checkbox" class="checkbox"/>
                         <span>Use Shipping Address for Billing?</span>
                     </label>
                 </p>
@@ -180,6 +186,10 @@
             </div>
         </div>
         <div class='row'>
+                <div class="input-field col s4">
+                        <input id="billingcity" type="text" class="validate" required>
+                        <label for="billingcity">Town/City</label>
+                </div>
             <div class="input-field col s3">
                 <select name="billingstate" id="billingstate">
                     <option value="" disabled selected>State</option>
@@ -236,6 +246,10 @@
                     <option value="WY">Wyoming</option>
                 </select>
             </div>
+            <div class="input-field col s4">
+                    <input id="billingzip" type="text" class="validate" required>
+                    <label for="billingzip">Zip Code</label>
+                </div>
         </div>
         <div class="row">
             <h4>
@@ -245,11 +259,11 @@
         <div class="row">
 
             <div class="input-field col s4">
-                <input id="creditcardnumber" type="text" class="validate">
-                <label for="creditcardnumber">Credit Card Number</label>
+                <input id="txtCardNumber" type="text" class="validate">
+                <label for="txtCardNumber">Credit Card Number</label>
             </div>
             <div class="input-field col s2">
-                <input id="expirationdate" type="text" class="validate" placeholder="MM/YY">
+                <input id="expirationdate" type="text" class="validate" pattern="/(\d){2}\/(\d){2}/" placeholder="MM/YY">
                 <label for="expirationdate">Expiration Date</label>
             </div>
             <div class="input-field col s2">
@@ -258,7 +272,7 @@
             </div>
         </div>
 
-        <input type="submit" name="submit" id="submit" value="Purchase">
+        <input type="submit" name="submit" id="submit" value="Purchase" class="purchase">
     </form>
 
 
