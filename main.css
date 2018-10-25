@@ -1,13 +1,12 @@
-body {
-  display: flex;
+#homepagebody {
   min-height: 100vh;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 #carousel {
   background-color: #2eccb9;
 }
 main {
-  flex: 1 0 auto;
+  /* flex: 1 0 auto; */
 }
 .carousel .carousel-item {
   width: 250px !important;}
