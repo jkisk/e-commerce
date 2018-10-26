@@ -6,10 +6,10 @@
   "scripts": {
     "build": "browserify checkout.js -o bundle.js",
     "watch": "watchify checkout.js -o bundle.js",
-    "build-products": "browserify scripts/product.js -o bundle.js",
-    "watch-products": "watchify scripts/products.js - bundle.js",
+    "build-products": "browserify scripts/product.js -o scripts/product-bundle.js",
+    "watch-products": "watchify scripts/product.js -o scripts/product-bundle.js",
     "dev-server": "live-server .",
-    "dev": "run-all \"npm run watch\" \"npm run dev-server\""
+    "dev": "run-all \"npm run watch\" \"npm run watch-products\" \"npm run build-products\" \"npm run dev-server\""
   },
   "repository": {
     "type": "git",
