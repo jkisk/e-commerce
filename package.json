@@ -4,8 +4,8 @@
   "description": "A storefront for selling propane and propane accessories",
   "main": "index.js",
   "scripts": {
-    "build": "browserify scripts/product.js -o bundle.js",
-    "watch": "watchify scripts/product.js -o bundle.js",
+    "build": "browserify checkout.js -o bundle.js",
+    "watch": "watchify checkout.js -o bundle.js",
     "dev-server": "live-server .",
     "dev": "run-all \"npm run watch\" \"npm run dev-server\""
   },
