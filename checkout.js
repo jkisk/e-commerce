@@ -29,7 +29,7 @@
       const purchase = document.querySelector('.purchase-form')
       purchase.addEventListener('submit', (e) => {
           e.preventDefault()
-          purchase.innerHTML = "Your purchase is being processed, consider buying more fuel!"
+          purchase.innerHTML = "Your purchase is being processed, thank you! </br></br>"
 
       })
 
