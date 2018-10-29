@@ -110,7 +110,8 @@ function renderFilters({products, priceRange, tag}) {
     { low : 201, high : 300 },
     { low : 301, high : 500 },
     { low : 501, high : 700 }
-  ]
+  ];
+
   const priceHTML = document.getElementById("price-range");
 
   for (let product of products) {
@@ -119,19 +120,19 @@ function renderFilters({products, priceRange, tag}) {
     });
   }
 
-  for (let member of tags) {
-    console.log(tag);
+  for (let savedTag of tags) {
+    console.log(savedTag);
     let item = document.createElement("li");
 
-    if (member !== tag) {
+    if (savedTag !== tag) {
       let link = document.createElement("a");
 
-      link.innerText = member;
+      link.innerText = savedTag;
       link.setAttribute("href", "#");
       link.classList.add("tag");
-      link.value = member;
+      link.value = savedTag;
       item.appendChild(link);
-    } else item.innerText = member;
+    } else item.innerText = savedTag;
 
     tagsHTML.appendChild(item);
   }

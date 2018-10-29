@@ -9,7 +9,7 @@ function render({priceRange, tag}) {
   const productsHTML = document.getElementById("products");
 
   destroy(productsHTML);
-  renderFilters(products, priceRange, tag);
+  renderFilters({products, priceRange, tag});
 
   for (let i = 0; i < products.length; i++) {
     let match = true;
@@ -73,7 +73,8 @@ function renderFilters({products, priceRange, tag}) {
     { low : 201, high : 300 },
     { low : 301, high : 500 },
     { low : 501, high : 700 }
-  ]
+  ];
+
   const priceHTML = document.getElementById("price-range");
 
   for (let product of products) {
@@ -82,19 +83,19 @@ function renderFilters({products, priceRange, tag}) {
     });
   }
 
-  for (let tag of tags) {
-    console.log(tag);
+  for (let savedTag of tags) {
+    console.log(savedTag);
     let item = document.createElement("li");
 
-    if (tag !== activeTag) {
+    if (savedTag !== tag) {
       let link = document.createElement("a");
 
-      link.innerText = tag;
+      link.innerText = savedTag;
       link.setAttribute("href", "#");
       link.classList.add("tag");
-      link.value = tag;
+      link.value = savedTag;
       item.appendChild(link);
-    } else item.innerText = tag;
+    } else item.innerText = savedTag;
 
     tagsHTML.appendChild(item);
   }
