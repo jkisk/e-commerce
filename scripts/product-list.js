@@ -9,7 +9,7 @@ module.exports = products = [
   },
   {
     name : 'Char-King Imperiale',
-    price: 799.99,
+    price: 699.99,
     rating : 5,
     description : 'Our flagship grill, the Char-King Imperiale provides the best grilling experience you can achieve. Fully outfitted with Char-King\'s famous Accu-Heat™ Technology, Gas Stream™ burners and mult-layer grill, the Char-King Imperiale is the official State Grill of Texas.',
     image : 'img/char-king-imperiale.jpg',

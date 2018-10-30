@@ -10,7 +10,7 @@ module.exports = products = [
   },
   {
     name : 'Char-King Imperiale',
-    price: 799.99,
+    price: 699.99,
     rating : 5,
     description : 'Our flagship grill, the Char-King Imperiale provides the best grilling experience you can achieve. Fully outfitted with Char-King\'s famous Accu-Heat™ Technology, Gas Stream™ burners and mult-layer grill, the Char-King Imperiale is the official State Grill of Texas.',
     image : 'img/char-king-imperiale.jpg',
@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", main);
  *  The event handler for DOMContentLoaded
  */
 function main() {
-  render({priceRange : {low : 20, high : 700}, tag : "grill"});
+  const products = require("./product-list"); // list of all products
+  render({products : products});
 }
 
 /*
@@ -51,22 +52,23 @@ function main() {
  *  Builds the list of products based on the program state. Calls seperate
  *  function for rendering tags and price range buttons.
  */
-function render({priceRange, tag}) {
+function render(state /*{priceRange, tag}*/) {
   // debugger;
-  const products = require("./product-list"); // list of all products
+
   const productsHTML = document.getElementById("products"); // product spot
 
   destroy(productsHTML);
-  renderFilters({products : products, priceRange : priceRange, tag : tag});
+  renderFilters(state);
 
-  for (let i = 0; i < products.length; i++) { // loop over products
+  // debugger;
+  for (let i = 0; i < state.products.length; i++) { // loop over products
     let match = true; // if `match`, the product will display
 
     // if a tag was passed, and it doesn't match any current product tags...
-    if (tag !== undefined && !products[i].tags.includes(tag)) match = false;
-    else if (products[i].price !== undefined) { //...otherwise...
-      if (products[i].price < priceRange.low) match = false; // price min
-      else if (products[i].price > priceRange.high) match = false; // price max
+    if (state.tag !== undefined && !products[i].tags.includes(state.tag)) match = false;
+    else if (state.priceRange !== undefined) { //...otherwise...
+      if (state.products[i].price < state.priceRange.low) match = false; // price min
+      else if (state.products[i].price > state.priceRange.high) match = false; // price max
     }
 
     if (match) { // start creating the pieces
@@ -119,49 +121,77 @@ function render({priceRange, tag}) {
  *  Takes the object that represents all the products and the selected tags.
  *  Renders the tags and deals with their event listeners
  */
-function renderFilters({products, priceRange, tag}) {
+function renderFilters(state /*{products, priceRange, tag}*/) {
   const tags = new Set();                            // To filter out duplicates
   const tagsHTML = document.getElementById("tags");  // tags will go here
-  const priceRanges = [                              // price ranges
-    { low :   0, high :  50 },
-    { low :  51, high : 100 },
-    { low : 101, high : 200 },
-    { low : 201, high : 300 },
-    { low : 301, high : 500 },
-    { low : 501, high : 700 }
-  ];
+  const priceRanges = {                              // price ranges
+    "$0–50"    : { low :   0, high :  50 },
+    "$51–100"  : { low :  51, high : 100 },
+    "$101–200" : { low : 101, high : 200 },
+    "$201–300" : { low : 201, high : 300 },
+    "$301–500" : { low : 301, high : 500 },
+    "$501–700" : { low : 501, high : 700 }
+  };
+  const priceRangeKeys = new Set(Object.keys(priceRanges));
   const priceHTML = document.getElementById("price-range"); // price ranges here
+  const tagsLabel = document.createElement("span");
+  const priceLabel = document.createElement("span");
+
+  const tagHandler = function (e) {
+    state.tag = e.target.value;
+    render(state);
+  }
+  const priceHandler = function (e) {
+    console.log(e.target.value);
+    state.priceRange = priceRanges[e.target.value];
+    state.priceRangeString = e.target.value;
+    render(state);
+  }
+
+  let item;
+
+  tagsLabel.innerText = "Sort By: ";
+  priceLabel.innerText = "Price Range: "
 
   destroy(tagsHTML);
+  destroy(priceHTML);
 
-  for (let product of products) { // add tags for filtering in the set
+  for (let product of state.products) { // add tags for filtering in the set
     product.tags.forEach(function(el) {
       tags.add(el);
     });
   }
 
-  for (let savedTag of tags) { // pull out all set tags
-    let item = document.createElement("li"); // list item for each tag
+  tagsHTML.appendChild(tagsLabel);
+  priceHTML.appendChild(priceLabel);
 
-    if (savedTag !== tag) { // make sure this isn't the current tag
+  tagsHTML.appendChild(createFilterHTML(state, tags, tagHandler, state.tag));
+  priceHTML.appendChild(createFilterHTML(state, priceRangeKeys, priceHandler, state.priceRangeString));
+
+}
+
+function createFilterHTML(state, tags, handler, selected) {
+  const filterHTML = document.createElement("ul");
+  filterHTML.classList.add("filter-list")
+  for (let savedTag of tags) {                // pull out all set tags
+    let item = document.createElement("li");  // list item for each tag
+
+    if (savedTag !== selected) {             // this tag isn't the current tag
       let link = document.createElement("a"); // make it a link
 
-      link.innerText = savedTag;        // add tag text to link
-      link.setAttribute("href", "#");   // link to top of the page
-      link.classList.add("tag");        // add a tag class
-      link.value = savedTag;            // remember tag by element value
+      link.innerText = savedTag;              // add tag text to link
+      link.setAttribute("href", "#");         // link to top of the page
+      link.classList.add("tag");              // add a tag class
+      link.value = savedTag;                  // remember tag by element value
       // Links get a event listener, rendering with them as the current link
-      link.addEventListener("click", function (e) {
-        console.log(e)
-        render({priceRange : priceRange, tag : e.target.value});
-      });
+      link.addEventListener("click", handler);
 
       item.appendChild(link); // add the link to the list item
 
-    } else item.innerText = savedTag; // else, it's already clicked, so no link
-
-    tagsHTML.appendChild(item); // either way, add the item to the DOM
+      } else item.innerText = savedTag; // else, it's already clicked so no link
+      filterHTML.appendChild(item);     // either way, add the item to the DOM
   }
+  return filterHTML;
 }
 
 /*
@@ -216,10 +246,5 @@ function destroy(node) {
   console.log("DESTROY: " + node);
   while (node.children[0]) node.removeChild(node.children[0]);
 }
-
-
-// function filter(e) {
-//   render()
-// }
 
 },{"./product-list":1}]},{},[2]);
