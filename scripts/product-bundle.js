@@ -52,11 +52,12 @@ function main() {
  *  function for rendering tags and price range buttons.
  */
 function render({priceRange, tag}) {
+  // debugger;
   const products = require("./product-list"); // list of all products
   const productsHTML = document.getElementById("products"); // product spot
 
   destroy(productsHTML);
-  renderFilters({products, priceRange, tag});
+  renderFilters({products : products, priceRange : priceRange, tag : tag});
 
   for (let i = 0; i < products.length; i++) { // loop over products
     let match = true; // if `match`, the product will display
@@ -95,7 +96,7 @@ function render({priceRange, tag}) {
       price.innerText = "$" + products[i].price;  // add a $ and then curr price
       infoCol.appendChild(price);                 // add node to info column
 
-      infoCol.appendChild(document.createElement("br"));  // line break
+      infoCol.appendChild(document.createElement("br"));    // line break
 
       ratingLabel.innerText = "Rating";
       rating.insertBefore(ratingLabel, rating.children[0]); // before stars
@@ -119,7 +120,6 @@ function render({priceRange, tag}) {
  *  Renders the tags and deals with their event listeners
  */
 function renderFilters({products, priceRange, tag}) {
-  console.log(products);
   const tags = new Set();                            // To filter out duplicates
   const tagsHTML = document.getElementById("tags");  // tags will go here
   const priceRanges = [                              // price ranges
@@ -130,8 +130,9 @@ function renderFilters({products, priceRange, tag}) {
     { low : 301, high : 500 },
     { low : 501, high : 700 }
   ];
-
   const priceHTML = document.getElementById("price-range"); // price ranges here
+
+  destroy(tagsHTML);
 
   for (let product of products) { // add tags for filtering in the set
     product.tags.forEach(function(el) {
@@ -140,7 +141,6 @@ function renderFilters({products, priceRange, tag}) {
   }
 
   for (let savedTag of tags) { // pull out all set tags
-    console.log(savedTag);
     let item = document.createElement("li"); // list item for each tag
 
     if (savedTag !== tag) { // make sure this isn't the current tag
@@ -152,7 +152,8 @@ function renderFilters({products, priceRange, tag}) {
       link.value = savedTag;            // remember tag by element value
       // Links get a event listener, rendering with them as the current link
       link.addEventListener("click", function (e) {
-        render({priceRange : priceRange, tag : e.value});
+        console.log(e)
+        render({priceRange : priceRange, tag : e.target.value});
       });
 
       item.appendChild(link); // add the link to the list item
@@ -169,10 +170,11 @@ function renderFilters({products, priceRange, tag}) {
  *
  *  Fills a span with 5 stars where n represents the number that should be
  *  filled. If n is is not a whole number, one star is a half star.
+ *
+ *  To do: Refactor so that we do no duplicate so much code!!
  */
 function getRatingStars(n) {
   const stars = document.createElement("span"); // span to hold the icons
-  console.log(n);
 
   // for each whole number in `n` ...
   for (let i = 0; i < Math.floor(n); i++) {
@@ -211,7 +213,8 @@ function getRatingStars(n) {
  *  Clears out a given node.
  */
 function destroy(node) {
-  while (node.children[0]) node.removeChild(children[0]);
+  console.log("DESTROY: " + node);
+  while (node.children[0]) node.removeChild(node.children[0]);
 }
 
 
