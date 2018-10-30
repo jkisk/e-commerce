@@ -60,18 +60,25 @@ function render(state /*{priceRange, tag}*/) {
   destroy(productsHTML);
   renderFilters(state);
 
-  // debugger;
   for (let i = 0; i < state.products.length; i++) { // loop over products
     let match = true; // if `match`, the product will display
 
     // if a tag was passed, and it doesn't match any current product tags...
-    if (state.tag !== undefined && !products[i].tags.includes(state.tag)) match = false;
-    else if (state.priceRange !== undefined) { //...otherwise...
-      if (state.products[i].price < state.priceRange.low) match = false; // price min
-      else if (state.products[i].price > state.priceRange.high) match = false; // price max
+    if (state.tag !== undefined && !products[i].tags.includes(state.tag))
+      match = false;
+      
+    if (state.priceRange !== undefined) { //...otherwise...
+      if (state.products[i].price < state.priceRange.low) // price min
+        match = false;
+      else if (state.products[i].price > state.priceRange.high) // price max
+        match = false;
     }
 
-    if (match) { // start creating the pieces
+    if (state.minRating !== undefined) {
+      if (state.products[i].rating < state.minRating) match = false;
+    }
+
+    if (match) {                                          // start building...
       let product = document.createElement("div");        // full product area
       let imageCol = document.createElement("div");       // image column
       let infoCol = document.createElement("div");        // info column
@@ -121,40 +128,65 @@ function render(state /*{priceRange, tag}*/) {
  *  Takes the object that represents all the products and the selected tags.
  *  Renders the tags and deals with their event listeners
  */
-function renderFilters(state /*{products, priceRange, tag}*/) {
+function renderFilters(state) {
   const tags = new Set();                            // To filter out duplicates
   const tagsHTML = document.getElementById("tags");  // tags will go here
+
   const priceRanges = {                              // price ranges
-    "$0–50"    : { low :   0, high :  50 },
-    "$51–100"  : { low :  51, high : 100 },
-    "$101–200" : { low : 101, high : 200 },
-    "$201–300" : { low : 201, high : 300 },
-    "$301–500" : { low : 301, high : 500 },
-    "$501–700" : { low : 501, high : 700 }
+    "$0–50"     :  { low :   0, high :  50 },
+    "$51–100"   :  { low :  51, high : 100 },
+    "$101–200"  :  { low : 101, high : 200 },
+    "$201–300"  :  { low : 201, high : 300 },
+    "$301–500"  :  { low : 301, high : 500 },
+    "$501–700"  :  { low : 501, high : 700 }
   };
   const priceRangeKeys = new Set(Object.keys(priceRanges));
   const priceHTML = document.getElementById("price-range"); // price ranges here
+
+  const minRatings = new Set([1,2,3,4,5]);
+  const minRatingsHTML = document.getElementById("min-rating");
+
   const tagsLabel = document.createElement("span");
   const priceLabel = document.createElement("span");
+  const minRatingLabel = document.createElement("span");
 
   const tagHandler = function (e) {
     state.tag = e.target.value;
     render(state);
   }
   const priceHandler = function (e) {
-    console.log(e.target.value);
     state.priceRange = priceRanges[e.target.value];
     state.priceRangeString = e.target.value;
+    render(state);
+  }
+  const minRatingHandler = function (e) {
+    state.minRating = e.target.value;
+    render(state);
+  }
+
+  const removePriceHandler = function (e) {
+    delete state.priceRange;
+    delete state.priceRangeString;
+    render(state);
+  }
+  const removeTagHandler = function (e) {
+    delete state.tag;
+    render(state);
+  }
+  const removeMinRatingHandler = function (e) {
+    delete state.minRating;
     render(state);
   }
 
   let item;
 
   tagsLabel.innerText = "Sort By: ";
-  priceLabel.innerText = "Price Range: "
+  priceLabel.innerText = "Price Range: ";
+  minRatingLabel.innerText = "Min Rating: ";
 
   destroy(tagsHTML);
   destroy(priceHTML);
+  destroy(minRatingsHTML);
 
   for (let product of state.products) { // add tags for filtering in the set
     product.tags.forEach(function(el) {
@@ -164,10 +196,19 @@ function renderFilters(state /*{products, priceRange, tag}*/) {
 
   tagsHTML.appendChild(tagsLabel);
   priceHTML.appendChild(priceLabel);
+  minRatingsHTML.appendChild(minRatingLabel);
 
   tagsHTML.appendChild(createFilterHTML(state, tags, tagHandler, state.tag));
-  priceHTML.appendChild(createFilterHTML(state, priceRangeKeys, priceHandler, state.priceRangeString));
+  if (state.tag !== undefined)
+    tagsHTML.appendChild(createRemoveButton(removeTagHandler));
 
+  priceHTML.appendChild(createFilterHTML(state, priceRangeKeys, priceHandler, state.priceRangeString));
+  if (state.priceRange !== undefined)
+    priceHTML.appendChild(createRemoveButton(removePriceHandler));
+
+  minRatingsHTML.appendChild(createFilterHTML(state, minRatings, minRatingHandler, state.minRating));
+  if (state.minRating !== undefined)
+    minRatingsHTML.appendChild(createRemoveButton(removeMinRatingHandler));
 }
 
 function createFilterHTML(state, tags, handler, selected) {
@@ -192,6 +233,16 @@ function createFilterHTML(state, tags, handler, selected) {
       filterHTML.appendChild(item);     // either way, add the item to the DOM
   }
   return filterHTML;
+}
+
+function createRemoveButton(handler) {
+  const button = document.createElement("a");
+  button.setAttribute("href", "#");
+  button.classList.add("remove");
+  button.addEventListener("click", handler);
+  button.innerText = "remove";
+
+  return button;
 }
 
 /*

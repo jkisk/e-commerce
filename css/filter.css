@@ -8,6 +8,11 @@
   margin: 0px 4px 0px 4px;
 }
 
+.remove {
+  color: red;
+  margin-left: 10px;
+}
+
 #products img {
   overflow: none;
   width: 100%;
