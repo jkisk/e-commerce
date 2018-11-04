@@ -1,12 +1,27 @@
 #homepagebody {
   min-height: 100vh;
-  /* flex-direction: column; */
 }
 #carousel {
   background-color: #2eccb9;
 }
-main {
-  /* flex: 1 0 auto; */
-}
 .carousel .carousel-item {
-  width: 250px !important;}
+  width: 250px !important;
+}
+#outerDiv{
+	position:relative;
+}
+.mydivoverlap{
+    position: relative;
+    z-index: 1;
+}
+#hide-add{
+    display: none;
+}
+#outerDiv:hover #hide-add{ 
+	display:block;
+}
+#mapPad {
+  position: relative;
+  width: 10em;
+  height: 10em;
+}
