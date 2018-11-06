@@ -1,3 +1,4 @@
+
 #homepagebody {
   min-height: 100vh;
 }
@@ -8,7 +9,8 @@
   width: 250px !important;
 }
 #outerDiv{
-	position:relative;
+  position:relative;
+  border-radius: 20px;
 }
 .mydivoverlap{
     position: relative;
@@ -24,4 +26,32 @@
   position: relative;
   width: 10em;
   height: 10em;
+}
+#background {
+  background-image: url("img/chris-liverani-480934-unsplash.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  padding: 5rem; 
+}
+#emailField {
+  opacity: 0.4;
+  background-color: grey;
+  border-radius: 10px;
+  padding-left: 1em;
+}
+.explore {
+font-style: bold;
+font-family: 'Nanum Gothic', sans-serif;
+font-weight: thin;
+color: teal;
+}
+#card {
+  opacity: 0.4;
+  background-color: grey;
+}
+#reward {
+  font-style: italic;
+}
+#logo {
+  font-family: 'Rock Salt', cursive;
 }
