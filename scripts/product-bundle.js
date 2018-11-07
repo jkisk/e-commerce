@@ -66,7 +66,7 @@ function render(state /*{priceRange, tag}*/) {
     // if a tag was passed, and it doesn't match any current product tags...
     if (state.tag !== undefined && !products[i].tags.includes(state.tag))
       match = false;
-      
+
     if (state.priceRange !== undefined) { //...otherwise...
       if (state.products[i].price < state.priceRange.low) // price min
         match = false;
@@ -150,6 +150,11 @@ function renderFilters(state) {
   const priceLabel = document.createElement("span");
   const minRatingLabel = document.createElement("span");
 
+  /*
+   *  HANDLERS BELOW
+   */
+
+  // The below handlers add the sected filter to state
   const tagHandler = function (e) {
     state.tag = e.target.value;
     render(state);
@@ -164,6 +169,7 @@ function renderFilters(state) {
     render(state);
   }
 
+  // The below handlers remove the selected filter from state
   const removePriceHandler = function (e) {
     delete state.priceRange;
     delete state.priceRangeString;
@@ -178,28 +184,35 @@ function renderFilters(state) {
     render(state);
   }
 
-  let item;
+  /*
+   *  OKAY, NO MORE HANDLERS
+   */
 
+  // Labels for the filters
   tagsLabel.innerText = "Sort By: ";
   priceLabel.innerText = "Price Range: ";
   minRatingLabel.innerText = "Min Rating: ";
 
+  // destroy each filter
   destroy(tagsHTML);
   destroy(priceHTML);
   destroy(minRatingsHTML);
 
-  for (let product of state.products) { // add tags for filtering in the set
+  // add tags for filtering in the set
+  for (let product of state.products) {
     product.tags.forEach(function(el) {
       tags.add(el);
     });
   }
 
+  // add each filter label to the DOM
   tagsHTML.appendChild(tagsLabel);
   priceHTML.appendChild(priceLabel);
   minRatingsHTML.appendChild(minRatingLabel);
 
+  // create each filter and add it to the DOM
   tagsHTML.appendChild(createFilterHTML(state, tags, tagHandler, state.tag));
-  if (state.tag !== undefined)
+  if (state.tag !== undefined) // if a tag is highlighted, add a remove button
     tagsHTML.appendChild(createRemoveButton(removeTagHandler));
 
   priceHTML.appendChild(createFilterHTML(state, priceRangeKeys, priceHandler, state.priceRangeString));
@@ -211,6 +224,12 @@ function renderFilters(state) {
     minRatingsHTML.appendChild(createRemoveButton(removeMinRatingHandler));
 }
 
+/*
+ *  Parameters: Object state, Set tags, Function handler, String/Number selected
+ *  Return:     Node filterHTML
+ *
+ *
+ */
 function createFilterHTML(state, tags, handler, selected) {
   const filterHTML = document.createElement("ul");
   filterHTML.classList.add("filter-list")
@@ -235,11 +254,18 @@ function createFilterHTML(state, tags, handler, selected) {
   return filterHTML;
 }
 
+/*
+ *  Parameters: Function handler
+ *  Return:     Node button
+ *
+ *  Takes a handler function and generates a Node that is a button (link) which
+ *  will fire the handler when clicked. Built for the remove button.
+ */
 function createRemoveButton(handler) {
   const button = document.createElement("a");
   button.setAttribute("href", "#");
   button.classList.add("remove");
-  button.addEventListener("click", handler);
+  button.addEventListener("click", handler); // add handler secified above
   button.innerText = "remove";
 
   return button;
@@ -251,37 +277,19 @@ function createRemoveButton(handler) {
  *
  *  Fills a span with 5 stars where n represents the number that should be
  *  filled. If n is is not a whole number, one star is a half star.
- *
- *  To do: Refactor so that we do no duplicate so much code!!
  */
 function getRatingStars(n) {
   const stars = document.createElement("span"); // span to hold the icons
 
-  // for each whole number in `n` ...
-  for (let i = 0; i < Math.floor(n); i++) {
-    let fullStar = document.createElement("i"); // create i tag
-    fullStar.classList.add("material-icons");   // Materialize's class for icons
-    fullStar.classList.add("tiny");             // class for tiny icons
-    fullStar.innerText = "star";                // class for filled star
-    stars.appendChild(fullStar);                // add to stars span
-  }
-
-  // if `n` is not a whole number ...
-  if (n - Math.floor(n) !== 0) {
-    let halfStar = document.createElement("i"); // create i tag
-    halfStar.classList.add("material-icons");   // Materialize's class for icons
-    halfStar.classList.add("tiny");             // class for tiny icons
-    halfStar.innerText = "star_half";           // class for half star
-    stars.appendChild(halfStar);                // add to stars span
-  }
-
-  // for each star not filled by n
-  for (let i = 0; i < 5 - Math.ceil(n); i++) {
-    let noStar = document.createElement("i");   // create i tag
-    noStar.classList.add("material-icons");     // Materialize's class for icons
-    noStar.classList.add("tiny");               // class for tiny icons
-    noStar.innerText = "star_border";           // class for empty star
-    stars.appendChild(noStar);                  // add to stars
+  for (let i = 1; i <= 5; i++) {
+    let star = document.createElement("i");
+    star.classList.add("material-icons");
+    star.classList.add("tiny");
+    console.log(i, n);
+    if (i <= Math.floor(n)) star.innerText = "star";
+    else if (i <= Math.ceil(n)) star.innerText = "star_half";
+    else star.innerText = "star_border";
+    stars.appendChild(star);
   }
 
   return stars;
