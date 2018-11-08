@@ -49,11 +49,11 @@
             <div class="row">
 
                 <div class="input-field col s4">
-                    <input id="shippingfirstname" type="text" class="validate" required>
+                    <input id="shippingfirstname" type="text" class="validate" data-error="please enter your first name" required>
                     <label for="shippingfirstname">First Name</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="shippinglastname" type="text" class="validate" required>
+                    <input id="shippinglastname" type="text" class="validate" data-error="please enter your last name" required>
                     <label for="shippinglastname">Last Name</label>
                 </div>
                 <div class="input-field col s4">
@@ -63,7 +63,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="shippingaddress1" type="text" class="validate" required>
+                    <input id="shippingaddress1" type="text" class="validate" data-error="please enter your address" required>
                     <label for="shippingaddress1">Address Line 1</label>
                 </div>
                 <div class="input-field col s6">
@@ -75,13 +75,13 @@
 
             <div class="row">
                 <div class="input-field col s4">
-                    <input id="shippingcity" type="text" class="validate" required>
+                    <input id="shippingcity" type="text" class="validate" data-error="please enter your city" required>
                     <label for="shippingcity">Town/City</label>
                 </div>
 
                 <div class="input-field col s3">
 
-                    <select name="shippingstate" id="shippingstate">
+                    <select name="shippingstate" id="shippingstate" class="validate" required data-error="please select your state">
                         <option value="" disabled selected>State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -139,7 +139,7 @@
                     </select>
                 </div>
                 <div class="input-field col s4">
-                    <input id="shippingzip" type="text" class="validate" required>
+                    <input id="shippingzip" type="text" class="validate" data-error="please enter your zip code"required>
                     <label for="shippingzip">Zip Code</label>
                 </div>
 
@@ -165,21 +165,21 @@
             <div class="row">
 
                 <div class="input-field col s4">
-                    <input id="billingfirstname" type="text" class="validate" required>
+                    <input id="billingfirstname" type="text" class="validate" data-error="please enter your first name" required>
                     <label for="billingfirstname">First Name</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="billinglastname" type="text" class="validate" required>
+                    <input id="billinglastname" type="text" class="validate" data-error="please enter your last name" required>
                     <label for="billinglastname">Last Name</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="billingcompany" type="text" class="validate">
+                    <input id="billingcompany" type="text" class="validate" >
                     <label for="billingcompany">Company</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="billingaddress1" type="text" class="validate" required>
+                    <input id="billingaddress1" type="text" class="validate" data-error="please enter your address"required>
                     <label for="billingaddress1">Address Line 1</label>
                 </div>
                 <div class="input-field col s6">
@@ -189,11 +189,11 @@
             </div>
             <div class='row'>
                 <div class="input-field col s4">
-                    <input id="billingcity" type="text" class="validate" required>
+                    <input id="billingcity" type="text" class="validate" data-error="please enter your city" required>
                     <label for="billingcity">Town/City</label>
                 </div>
                 <div class="input-field col s3">
-                    <select name="billingstate" id="billingstate">
+                    <select name="billingstate" id="billingstate" class="validate" data-error="please select your state">
                         <option value="" disabled selected>State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -249,7 +249,7 @@
                     </select>
                 </div>
                 <div class="input-field col s4">
-                    <input id="billingzip" type="text" class="validate" required>
+                    <input id="billingzip" type="text" class="validate" data-error="please enter your zip code" required>
                     <label for="billingzip">Zip Code</label>
                 </div>
             </div>
@@ -261,68 +261,72 @@
             <div class="row">
 
                 <div class="input-field col s4">
-                    <input id="txtCardNumber" type="text" class="validate">
+                    <input id="txtCardNumber" type="text" class="validate" data-error="please enter a valid credit card number" required>
                     <label for="txtCardNumber">Credit Card Number</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="expirationdate" type="text" class="validate" placeholder="MM/YY">
+                    <input id="expirationdate" type="text" class="validate" placeholder="MM/YY" required data-error="please enter expiration date">
                     <label for="expirationdate">Expiration Date</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="cvc" type="text" class="validate" max="9999">
+                    <input id="cvc" type="text" class="validate" max="9999" data-error="please enter security code on back of card" required>
                     <label for="cvc">CVC</label>
                 </div>
             </div>
 
             <input type="submit" name="submit" id="submit" value="Purchase" class="purchase btn waves-effect waves-light">
-        </form>
+        </form><br><br>
 
 
 
     </div>
-    <footer class="page-footer teal lighten-2">
+    <footer class="page-footer grey darken-2">
         <div class="container">
           <div class="row">
-            <div class="col l6 s12">
-              <h5 class="white-text">Propane Accessories</h5>
-              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            <div class="col">
+              <h5 class="teal-text" id="logo">Strickland Propane, Inc.</h5>
             </div>
           </div>
           <div class="row">
+            <div class="col s3">
+              <div class="container">
+                <!-- <h5 class="white-text">Directions</h5> -->
+                <iframe id="mapPad" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42964.90989797687!2d-122.366989369405!3d47.69787952272181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549011681b2345d9%3A0xf6e6989272e4609a!2sSalmon&#39;s+Service+Propane!5e0!3m2!1sen!2sus!4v1541358296098"></iframe>
+              </div>
+            </div>
     
-            <div class="col l4 s2">
-              <h5 class="white-text">FAQs</h5>
+            <div class="col s3">
+              <h5 class="teal-text">FAQs</h5>
               <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Return Policy</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Warranty</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Shipping</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Rewards Program</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Return Policy</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Warranty</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Shipping</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Rewards Program</a></li>
               </ul>
             </div>
-            <div class="col l4 s2">
-              <h5 class="white-text">Contact Us</h5>
+            <div class="col s3">
+              <h5 class="teal-text">Contact Us</h5>
               <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Address</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Email</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Call Us</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Employment</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Address</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Email</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Call Us</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Careers</a></li>
               </ul>
             </div>
-            <div class="col l4 s2">
-              <h5 class="white-text">Products</h5>
+            <div class="col s3">
+              <h5 class="teal-text">Products</h5>
               <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Grills</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Tanks</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Service</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Accessories</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Grills</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Tanks</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Service</a></li>
+                <li><a class="teal-text text-lighten-3" href="#!">Accessories</a></li>
               </ul>
             </div>
           </div>
         </div>
-        </div>
-        <div class="footer-copyright">
+        <div class="footer-copyright grey darken-3">
           <div class="container">
-            © 2014 Copyright Text
+            © 2018 Copyright Text
           </div>
         </div>
       </footer>
