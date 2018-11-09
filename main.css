@@ -1,3 +1,18 @@
+.section .grey {
+  padding-bottom: 0px !important;
+}
+
+.star-logo {
+  max-height: 50px;
+  margin: 7px 16px;
+  float: left;
+}
+
+.badge.blue {
+  color: white;
+  border-radius: 6px;
+  margin-left: 12px;
+}
 
 #homepagebody {
   min-height: 100vh;
@@ -19,7 +34,7 @@
 #hide-add{
     display: none;
 }
-#outerDiv:hover #hide-add{ 
+#outerDiv:hover #hide-add{
 	display:block;
 }
 #mapPad {
@@ -31,7 +46,7 @@
   background-image: url("img/chris-liverani-480934-unsplash.jpg");
   background-size: cover;
   background-position: center bottom;
-  padding: 5rem; 
+  padding: 5rem;
 }
 #emailField {
   opacity: 0.4;
@@ -54,4 +69,29 @@ color: teal;
 }
 #logo {
   font-family: 'Rock Salt', cursive;
+}
+
+.filter-list {
+  display: inline;
+}
+
+.filter-list li {
+  list-style: none;
+  display: inline-block;
+  margin: 0px 4px 0px 4px;
+}
+
+.remove {
+  color: red;
+  margin-left: 10px;
+}
+
+#products img {
+  overflow: none;
+  width: 100%;
+}
+
+#products h2 {
+  margin-top: 0px;
+  font-size: 30px;
 }
