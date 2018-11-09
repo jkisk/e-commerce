@@ -30,5 +30,37 @@ module.exports = products = [
     description : 'Buy a full 20 lb. tank of clean burning propane',
     image : 'img/new-tank.jpg',
     tags : ['propane']
+  },
+  {
+    name : 'Strickland Basics: Tongs',
+    price : 7.95,
+    rating : 2.9,
+    description : 'Flip burgers in style with our starter tongs. Comes free with the Vogner Citizen.',
+    image : 'img/basic-tongs.jpg',
+    tags: ['basics', 'accessories']
+  },
+  {
+    name : 'Premium Tongs',
+    price : 17.55,
+    rating : 3.8,
+    description : 'Take your grill set up a notch with this Premium tongs. Made with Space Age polymers!',
+    image : 'img/premium-tongs.jpg',
+    tags : ['premium', 'accessories']
+  },
+  {
+    name : 'Strickland Basics: Grill Brush',
+    price : 8.25,
+    rating : 3.7,
+    description : 'Keep your grill clean with our starter brush.',
+    image : 'img/basic-brush.jpg',
+    tags : ['basics', 'accessories']
+  },
+  {
+    name : 'Premium Grill Brush',
+    price : 18.99,
+    rating : 3.2,
+    description : 'Keeping your grill clean shouldn\'t doesn\'t need to feel like a dirty job with our Premium Grill Brush. Decorated with the lone star, this brush makes cleaning your grill an act of Texas pride!',
+    image : 'img/premium-brush.jpg',
+    tags : ['premium', 'accessories']
   }
 ]
