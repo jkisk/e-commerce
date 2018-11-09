@@ -17,12 +17,6 @@
 #homepagebody {
   min-height: 100vh;
 }
-#carousel {
-  background-color: #2eccb9;
-}
-.carousel .carousel-item {
-  width: 250px !important;
-}
 #outerDiv{
   position:relative;
   border-radius: 10px;
@@ -70,7 +64,9 @@ color: teal;
 #logo {
   font-family: 'Rock Salt', cursive;
 }
-
+#send {
+  border-radius: 10px;
+}
 .filter-list {
   display: inline;
 }

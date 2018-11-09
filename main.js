@@ -9,3 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+document.querySelector( '#email' ).addEventListener('submit', function(event){
+  event.preventDefault()
+  document.querySelector('#email').reset()
+  alert("Welcome to the Propaniacs")
+})
